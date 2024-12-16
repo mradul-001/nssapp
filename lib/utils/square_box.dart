@@ -6,7 +6,7 @@ class SquareBox extends StatelessWidget {
   final String imagePath;
   final VoidCallback onImageOrArrowPressed;
 
-  const SquareBox({
+  const SquareBox({super.key, 
     required this.imagePath,
     required this.onImageOrArrowPressed,
   });

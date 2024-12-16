@@ -7,7 +7,7 @@ class TitleWithBox extends StatelessWidget {
   final String imagePath;
   final VoidCallback onImageOrArrowPressed;
 
-  const TitleWithBox({
+  const TitleWithBox({super.key, 
     required this.title,
     required this.imagePath,
     required this.onImageOrArrowPressed,

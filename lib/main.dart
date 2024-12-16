@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: Routes.homeRoute,
       routes: {
-        Routes.homeRoute: (context) => Home(),
+        Routes.homeRoute: (context) => const Home(),
         Routes.loginRoute: (context) => const SignIn(),
         Routes.signUpRoute: (context) => const SignUp(),
         Routes.splashRoute: (context) => const Splash(),
