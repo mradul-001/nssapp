@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/pages/on_boarding.dart';
+import 'package:nssapp/pages/profile.dart';
 import 'package:nssapp/pages/sign_in.dart';
 import 'package:nssapp/pages/sign_up.dart';
 import 'package:nssapp/pages/home.dart';
@@ -17,13 +18,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.onBoardRoute,
+      initialRoute: Routes.homeRoute,
       routes: {
         Routes.homeRoute: (context) => Home(),
         Routes.loginRoute: (context) => const SignIn(),
-        Routes.signUpRoute: (context) => SignUp(),
+        Routes.signUpRoute: (context) => const SignUp(),
         Routes.splashRoute: (context) => const Splash(),
-        Routes.onBoardRoute: (context) => OnBoard(),
+        Routes.onBoardRoute: (context) => const OnBoard(),
+        Routes.profileRoute: (context) => const ProfilePage()
       },
     );
   }

@@ -4,4 +4,5 @@ class Routes {
   static String homeRoute = "/home";
   static String splashRoute = "/splash";
   static String onBoardRoute = "/onBoard";
+  static String profileRoute = "/profile";
 }

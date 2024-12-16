@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:nssapp/utils/routes.dart';
 
 class OnBoard extends StatelessWidget {
+  const OnBoard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
