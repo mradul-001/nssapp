@@ -1,0 +1,41 @@
+.dart_tool/
+.idea/
+android/
+build/
+ios/
+linux/
+macos/
+web/
+windows/
+.flutter-plugins
+.flutter-plugins-dependencies
+.metadata
+analysis_options.yaml
+nssapp.iml
+pubspec.lock
+.packages
+.pub-cache/
+
+
+
+# VS Code
+.vscode/
+
+# JetBrains IDEs
+.idea/
+
+# macOS
+macos/.symlinks/
+macos/Pods/
+macos/Podfile.lock
+
+# Flutter Web
+web/.dart_tool/
+web/.packages
+
+# Generated files
+*.log
+*.class
+*.apk
+*.exe
+*.swp
