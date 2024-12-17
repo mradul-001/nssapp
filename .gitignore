@@ -1,8 +1,6 @@
 .dart_tool/
 .idea/
-android/
 build/
-ios/
 linux/
 macos/
 web/
@@ -23,15 +21,6 @@ pubspec.lock
 
 # JetBrains IDEs
 .idea/
-
-# macOS
-macos/.symlinks/
-macos/Pods/
-macos/Podfile.lock
-
-# Flutter Web
-web/.dart_tool/
-web/.packages
 
 # Generated files
 *.log
