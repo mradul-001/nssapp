@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nssapp/utils/title_with_box.dart';
-import 'package:nssapp/utils/square_box.dart';
+import 'package:nssapp/widgets/app_drawer.dart';
+import 'package:nssapp/widgets/title_with_box.dart';
+import 'package:nssapp/widgets/square_box.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -11,68 +12,8 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-
-        // actions: [
-        //   IconButton(
-        //     icon: Icon(Icons.account_circle, color: Color(0xFF00124C)),
-        //     onPressed: () {},
-        //   ),
-        // ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Color.fromARGB(255, 1, 1, 59),
-              ),
-              child: Text(
-                'Drawer Header',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            ListTile(
-              contentPadding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-              leading: const Icon(
-                Icons.notifications,
-                size: 25,
-              ),
-              title: const Text(
-                "Notifications",
-                style: TextStyle(fontSize: 18),
-              ),
-              onTap: () {},
-            ),
-            ListTile(
-              contentPadding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-              leading: const Icon(
-                Icons.settings,
-                size: 25,
-              ),
-              title: const Text(
-                "Settings",
-                style: TextStyle(fontSize: 18),
-              ),
-              onTap: () {},
-            ),
-            ListTile(
-              contentPadding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-              leading: const Icon(
-                Icons.logout,
-                size: 25,
-              ),
-              title: const Text(
-                "Logout",
-                style: TextStyle(fontSize: 18),
-              ),
-              onTap: () {},
-            ),
-          ],
-        ),
-      ),
+      drawer: AppDrawer(),
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.fromLTRB(25, 10, 20, 22),

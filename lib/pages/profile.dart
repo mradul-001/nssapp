@@ -26,7 +26,6 @@ class _ProfilePageState extends State<ProfilePage> {
         _profileImage = File(pickedFile.path);
       });
     }
-
   }
 
   @override
@@ -57,7 +56,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   top: 30,
                   left: 20,
                   child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context); // go back to previous page
+                      },
                       icon: const Icon(
                         Icons.arrow_back,
                         color: Colors.white,

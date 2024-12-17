@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nssapp/pages/notifications.dart';
 import 'package:nssapp/pages/on_boarding.dart';
 import 'package:nssapp/pages/profile.dart';
 import 'package:nssapp/pages/sign_in.dart';
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
         Routes.signUpRoute: (context) => const SignUp(),
         Routes.splashRoute: (context) => const Splash(),
         Routes.onBoardRoute: (context) => const OnBoard(),
-        Routes.profileRoute: (context) => const ProfilePage()
+        Routes.profileRoute: (context) => const ProfilePage(),
+        Routes.notificationRoute: (context) => const Notifications(),
       },
     );
   }

@@ -5,4 +5,5 @@ class Routes {
   static String splashRoute = "/splash";
   static String onBoardRoute = "/onBoard";
   static String profileRoute = "/profile";
+  static String notificationRoute = "/notifications";
 }
