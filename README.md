@@ -1,1 +1,1 @@
-Source code for official app of NSS IITB.
+Source code for NSS IITB App.
