@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:nssapp/widgets/registration_form.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
   const SignUp({super.key});
+
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
@@ -48,65 +55,10 @@ class SignUp extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Column(
-                children: [
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Name',
-                      labelStyle: const TextStyle(fontSize: 18),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Roll Number',
-                      labelStyle: const TextStyle(fontSize: 18),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        radius: 5,
-                        backgroundColor: Colors.grey,
-                      ),
-                      SizedBox(width: 8),
-                      CircleAvatar(
-                        radius: 5,
-                        backgroundColor: Colors.grey,
-                      ),
-                      SizedBox(width: 8),
-                      CircleAvatar(
-                        radius: 5,
-                        backgroundColor: Colors.grey,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 1, 1, 59),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 16,
-                        horizontal: 50,
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: const Text(
-                      'Next',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    ),
-                  ),
+              child: const Column(
+                children: [ 
+                  RegistrationForm(),
+                  
                 ],
               ),
             ),

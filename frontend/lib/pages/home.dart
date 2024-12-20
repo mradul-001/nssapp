@@ -23,19 +23,19 @@ class Home extends StatelessWidget {
             // First three
             TitleWithBox(
               title: "Mark your attendance",
-              imagePath: "assets/attendance.png",
+              imagePath: "./assets/images/attendance.png",
               onImageOrArrowPressed: () {},
             ),
             const SizedBox(height: 24),
             TitleWithBox(
               title: "Get your Certificate",
-              imagePath: "assets/certificate.png",
+              imagePath: "./assets/images/attendance.png",
               onImageOrArrowPressed: () {},
             ),
             const SizedBox(height: 24),
             TitleWithBox(
               title: "Upcoming Events",
-              imagePath: "assets/events.png",
+              imagePath: "./assets/images/attendance.png",
               onImageOrArrowPressed: () {},
             ),
             const SizedBox(height: 24),
@@ -57,7 +57,7 @@ class Home extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       SquareBox(
-                        imagePath: "assets/feedback.png",
+                        imagePath: "./assets/images/attendance.png",
                         onImageOrArrowPressed: () {},
                       ),
                     ],
@@ -78,7 +78,7 @@ class Home extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       SquareBox(
-                        imagePath: "assets/misc.png",
+                        imagePath: "./assets/images/attendance.png",
                         onImageOrArrowPressed: () {},
                       ),
                     ],
