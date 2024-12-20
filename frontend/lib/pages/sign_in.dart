@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:nssapp/widgets/login_form.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({super.key});
@@ -30,97 +31,7 @@ class SignIn extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Spacer(),
-            Container(
-              padding: const EdgeInsets.all(25),
-              margin: const EdgeInsets.symmetric(horizontal: 20.0),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 242, 242, 242),
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 10,
-                    offset: const Offset(0, 5),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: 'User Name',
-                      labelStyle: const TextStyle(fontSize: 18),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Roll Number',
-                      labelStyle: const TextStyle(fontSize: 18),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        "Forgot Password?",
-                        style: TextStyle(
-                          color: Colors.blueGrey,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 8,
-                          backgroundColor: Color.fromARGB(255, 1, 1, 59),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                          child: Text(
-                            "Student",
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 1, 1, 59),
-                              fontFamily: "Nunito",
-                              fontSize: 20,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 25),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 1, 1, 59),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 16,
-                        horizontal: 50,
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: const Text(
-                      'Login',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            const LoginForm(),
             const Spacer(),
             Column(
               children: [

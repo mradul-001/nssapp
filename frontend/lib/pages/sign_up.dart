@@ -42,7 +42,7 @@ class _SignUpState extends State<SignUp> {
           children: [
             const Spacer(),
             Container(
-              padding: const EdgeInsets.all(25.0),
+              padding: EdgeInsets.fromLTRB(25, 20, 25, 25),
               margin: const EdgeInsets.symmetric(horizontal: 20.0),
               decoration: BoxDecoration(
                 color: const Color.fromARGB(255, 242, 242, 242),

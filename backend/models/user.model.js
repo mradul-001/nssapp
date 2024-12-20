@@ -34,6 +34,12 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+userSchema.methods.comparePassword = async function (userPassword) {
+  try {
+    return userPassword == this.password;
+  } catch (error) {}
+};
+
 const userModel = db.model("user", userSchema);
 
 module.exports = userModel;

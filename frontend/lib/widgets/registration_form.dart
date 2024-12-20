@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:nssapp/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -49,17 +49,56 @@ class _RegistrationFormState extends State<RegistrationForm> {
       "email": emailController.text,
       "password": passwordController.text
     };
-    var response = await http.post(Uri.parse("http://192.168.86.134:3000/registration"),
+    var response = await http.post(
+        Uri.parse("http://192.168.86.134:3000/registration"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(regBody));
 
-    print(response);
+    // decode the json response
+    var jsonResponse = jsonDecode(response.body);
+
+    if (jsonResponse['status']) {
+      Navigator.pushNamed(context, Routes.loginRoute);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        // showing back button when we are at second or third view
+        if (currentStep > 1) ...[
+          Container(
+            width: double.infinity,
+            child: Row(
+              mainAxisAlignment:
+                  MainAxisAlignment.start, // Aligns the icon to the start
+              children: [
+                IconButton(
+                  onPressed: () {
+                    if (currentStep == 2 || currentStep == 3) {
+                      setState(() {
+                        currentStep--;
+                      });
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    size: 25,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+        ] else ...[
+          const SizedBox(
+            height: 55,
+          ),
+        ],
+        // all the views
         Column(children: [
           // FIRST VIEW
           if (currentStep == 1) ...[
