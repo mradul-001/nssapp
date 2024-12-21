@@ -11,6 +11,7 @@ class RegistrationForm extends StatefulWidget {
 }
 
 class _RegistrationFormState extends State<RegistrationForm> {
+
   int currentStep = 1;
 
   // validation variables
@@ -68,7 +69,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
       children: [
         // showing back button when we are at second or third view
         if (currentStep > 1) ...[
-          Container(
+          SizedBox(
             width: double.infinity,
             child: Row(
               mainAxisAlignment:

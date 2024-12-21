@@ -1,70 +1,111 @@
+import 'dart:async';
+import 'package:nssapp/utils/routes.dart';
 import 'package:flutter/material.dart';
 
-class Splash extends StatelessWidget {
+class Splash extends StatefulWidget {
   const Splash({super.key});
+
+  @override
+  State<Splash> createState() => _SplashState();
+}
+
+class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
+  // animation controller
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  // function to replace splash screen with home screen after some seconds
+  @override
+  void initState() {
+    // ----------------- Animation Stuff --------------------
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    );
+
+    _animation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeIn,
+    );
+
+    _controller.forward();
+
+    // ----------------------------------------------------
+
+    Timer(const Duration(seconds: 3), () {
+      Navigator.pushReplacementNamed(context, Routes.homeRoute);
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 1, 1, 59),
-      body: Column(
-        children: [
-          const Spacer(flex: 3,),
-          Container(
-            padding: const EdgeInsets.all(20),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/nsslogo.png',
-                    alignment: Alignment.center,
-                    height: 200,
-                    width: 200,
-                  ),
-                  Column(
+        backgroundColor: const Color.fromARGB(255, 1, 1, 59),
+        body: FadeTransition(
+          opacity: _animation,
+          child: Column(
+            children: [
+              const Spacer(
+                flex: 3,
+              ),
+              Container(
+                padding: const EdgeInsets.all(20),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
-                        "NSS IITB",
-                        style: TextStyle(
-                          fontSize: 60,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w800,
-                        ),
+                      Image.asset(
+                        'assets/images/nsslogo.png',
+                        alignment: Alignment.center,
+                        height: 180,
+                        width: 180,
                       ),
-                      Transform.translate(
-                        offset:
-                            const Offset(0, -15), // Negative value to move upwards
-                        child: const Text(
-                          "National Service Scheme",
-                          style: TextStyle(
-                            fontSize: 22,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400,
+                      Column(
+                        children: [
+                          const Text(
+                            "NSS IITB",
+                            style: TextStyle(
+                              fontSize: 50,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w800,
+                            ),
                           ),
+                          Transform.translate(
+                            offset: const Offset(
+                                0, -15), // Negative value to move upwards
+                            child: const Text(
+                              "National Service Scheme",
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text(
+                        "THINK WE NOT ME!",
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 186, 153, 100),
+                          fontSize: 30,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    "THINK WE NOT ME!",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 186, 153, 100),
-                      fontSize: 35,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
+              const Spacer(),
+              Image.asset("assets/images/handimage.png",
+                  opacity: const AlwaysStoppedAnimation(.8)),
+            ],
           ),
-          const Spacer(),
-          Image.asset("assets/images/handimage.png"),
-        ],
-      ),
-    );
+        ));
   }
 }

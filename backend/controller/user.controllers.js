@@ -29,7 +29,7 @@ async function login(req, res, next) {
   if (!user) {
     throw new Error("User does not exist!");
   } else {
-    const isPasswordCorrect = await userModel.comparePassword(password);
+    const isPasswordCorrect = await user.comparePassword(password);
 
     if (isPasswordCorrect === false) {
       throw new Error("Password incorrect!");

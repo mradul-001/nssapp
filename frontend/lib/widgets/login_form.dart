@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'package:nssapp/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+// import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -8,6 +12,37 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  final TextEditingController rollController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  // dispose method to avoid memory leaks
+  @override
+  void dispose() {
+    rollController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  void loginUser() async {
+    var reqBody = {
+      "rollNo": rollController.text,
+      "password": passwordController.text
+    };
+
+    var response = await http.post(
+        Uri.parse("http://192.168.86.134:3000/login"),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(reqBody));
+
+    var jsonResponse = jsonDecode(response.body);
+
+    if (jsonResponse['status']) {
+      Navigator.pushNamed(context, Routes.homeRoute);
+    } else {
+      print("Something went wrong!");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,7 +61,8 @@ class _LoginFormState extends State<LoginForm> {
       ),
       child: Column(
         children: [
-          TextField(
+          TextFormField(
+            controller: rollController,
             decoration: InputDecoration(
               labelText: 'Roll Number',
               labelStyle: const TextStyle(fontSize: 18),
@@ -37,6 +73,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
           const SizedBox(height: 20),
           TextField(
+            controller: passwordController,
             decoration: InputDecoration(
               labelText: 'Password',
               labelStyle: const TextStyle(fontSize: 18),
@@ -92,7 +129,9 @@ class _LoginFormState extends State<LoginForm> {
                 horizontal: 50,
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              loginUser();
+            },
             child: const Text(
               'Login',
               style: TextStyle(fontSize: 20, color: Colors.white),
