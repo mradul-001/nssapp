@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:nssapp/utils/authenticator.dart';
 import 'package:nssapp/utils/routes.dart';
 
-class AppDrawer extends StatelessWidget {
+class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
 
+  @override
+  State<AppDrawer> createState() => _AppDrawerState();
+}
+
+class _AppDrawerState extends State<AppDrawer> {
+  AuthService _authService = AuthService();
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -59,7 +66,11 @@ class AppDrawer extends StatelessWidget {
               "Logout",
               style: TextStyle(fontSize: 18),
             ),
-            onTap: () {},
+            onTap: () async {
+              await _authService.logout();
+              print("Logged out");
+              Navigator.pushReplacementNamed(context, Routes.loginRoute);
+            },
           ),
         ],
       ),

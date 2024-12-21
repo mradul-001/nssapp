@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nssapp/widgets/login_form.dart';
+import 'package:nssapp/utils/routes.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({super.key});
@@ -10,21 +11,19 @@ class SignIn extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text(
-          'SIGN IN',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 24.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Nunito',
+        title: const Padding(
+          padding: EdgeInsets.all(10),
+          child: Text(
+            'SIGN IN',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Nunito',
+            ),
           ),
         ),
         backgroundColor: const Color.fromARGB(255, 1, 1, 59),
-        leading: const Icon(
-          Icons.arrow_back,
-          color: Colors.white,
-          size: 30,
-        ),
       ),
       body: Center(
         child: Column(
@@ -108,12 +107,18 @@ class SignIn extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Text(
-                        "Create a new account",
-                        style: TextStyle(
-                          fontFamily: "Nunito",
-                          fontSize: 16,
-                          color: Colors.white.withOpacity(.9),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacementNamed(
+                              context, Routes.signUpRoute);
+                        },
+                        child: Text(
+                          "Create a new account",
+                          style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 16,
+                            color: Colors.white.withOpacity(.9),
+                          ),
                         ),
                       )
                     ],

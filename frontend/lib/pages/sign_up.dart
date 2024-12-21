@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nssapp/utils/routes.dart';
 import 'package:nssapp/widgets/registration_form.dart';
 
 class SignUp extends StatefulWidget {
@@ -9,32 +10,24 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text(
-          'REGISTER',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 24.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Nunito',
+        title: const Padding(
+          padding: EdgeInsets.all(10),
+          child: Text(
+            'SIGN UP',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Nunito',
+            ),
           ),
         ),
         backgroundColor: const Color.fromARGB(255, 1, 1, 59),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-            size: 30,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
       ),
       body: Center(
         child: Column(
@@ -56,9 +49,8 @@ class _SignUpState extends State<SignUp> {
                 ],
               ),
               child: const Column(
-                children: [ 
+                children: [
                   RegistrationForm(),
-                  
                 ],
               ),
             ),
@@ -89,14 +81,20 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ),
                     const SizedBox(height: 5),
-                    Text(
-                      'Log In',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white.withOpacity(0.9),
-                        fontWeight: FontWeight.bold,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacementNamed(
+                            context, Routes.loginRoute);
+                      },
+                      child: Text(
+                        "Login",
+                        style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 18,
+                          color: Colors.white.withOpacity(.9),
+                        ),
                       ),
-                    ),
+                    )
                   ],
                 ),
               ),

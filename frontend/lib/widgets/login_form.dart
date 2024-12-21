@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:nssapp/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:nssapp/utils/authenticator.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -12,6 +12,8 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  final AuthService _authService = AuthService();
+
   final TextEditingController rollController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -29,14 +31,16 @@ class _LoginFormState extends State<LoginForm> {
       "password": passwordController.text
     };
 
-    var response = await http.post(
-        Uri.parse("http://192.168.86.134:3000/login"),
+    var response = await http.post(Uri.parse("http://192.168.29.51:3000/login"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(reqBody));
 
     var jsonResponse = jsonDecode(response.body);
 
     if (jsonResponse['status']) {
+      print(jsonResponse['status']);
+      print(jsonResponse['token']);
+      print(jsonResponse['message']);
       Navigator.pushNamed(context, Routes.homeRoute);
     } else {
       print("Something went wrong!");

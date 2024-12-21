@@ -12,7 +12,7 @@ dependencies:
   font_awesome_flutter: ^10.0.0
   image_picker: ^0.8.7+4
   http:
-  # shared_preferences:
+  shared_preferences:
   # jwt_decoder:
 
 

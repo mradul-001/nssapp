@@ -33,7 +33,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
     // ----------------------------------------------------
 
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, Routes.homeRoute);
+      Navigator.pushReplacementNamed(context, Routes.loginRoute);
     });
 
     super.initState();
