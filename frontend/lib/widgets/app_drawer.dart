@@ -10,7 +10,7 @@ class AppDrawer extends StatefulWidget {
 }
 
 class _AppDrawerState extends State<AppDrawer> {
-  AuthService _authService = AuthService();
+  final AuthService _authService = AuthService();
   @override
   Widget build(BuildContext context) {
     return Drawer(

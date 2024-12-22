@@ -6,4 +6,5 @@ class Routes {
   static String onBoardRoute = "/onBoard";
   static String profileRoute = "/profile";
   static String notificationRoute = "/notifications";
+  static String feedbackRoute = "/feedback";
 }
