@@ -37,7 +37,8 @@ class userServices {
     tokenData,
     secretKey,
     jwtExpiry /* the time till when the login is valid*/
-  ) {
+  ) 
+  {
     jwt.sign(tokenData, secretKey, { expiresIn: jwtExpiry });
   }
 }

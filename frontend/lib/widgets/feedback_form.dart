@@ -181,7 +181,7 @@ class FeedbackFormState extends State<FeedbackForm> {
               const SizedBox(
                 height: 10,
               ),
-              Container(
+              SizedBox(
                   width: double.infinity,
                   child: Column(
                     children: [

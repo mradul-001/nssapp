@@ -7,4 +7,5 @@ class Routes {
   static String profileRoute = "/profile";
   static String notificationRoute = "/notifications";
   static String feedbackRoute = "/feedback";
+  static String eventRoute = "/event";
 }

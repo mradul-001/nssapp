@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nssapp/pages/events.dart';
 import 'package:nssapp/pages/notifications.dart';
 import 'package:nssapp/pages/on_boarding.dart';
 import 'package:nssapp/pages/profile.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.homeRoute,
+      initialRoute: Routes.eventRoute,
       routes: {
         Routes.homeRoute: (context) => const Home(),
         Routes.loginRoute: (context) => const SignIn(),
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         Routes.profileRoute: (context) => const ProfilePage(),
         Routes.notificationRoute: (context) => const Notifications(),
         Routes.feedbackRoute: (context) => const FeedbackPage(),
+        Routes.eventRoute: (context) => const EventPage(),
       },
     );
   }
