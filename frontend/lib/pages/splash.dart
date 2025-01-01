@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:nssapp/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:nssapp/utils/authenticator.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -32,9 +33,23 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
 
     // ----------------------------------------------------
 
-    Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, Routes.loginRoute);
-    });
+    final AuthService _authService = AuthService();
+
+    Future<void> navigateToNextPage() async {
+      await Future.delayed(const Duration(seconds: 2));
+
+      // Check login status
+      bool isLoggedIn = await _authService.isLoggedIn();
+
+      // Navigate to the appropriate page
+      if (isLoggedIn) {
+        Navigator.pushReplacementNamed(context, Routes.homeRoute);
+      } else {
+        Navigator.pushReplacementNamed(context, Routes.loginRoute);
+      }
+    }
+
+    navigateToNextPage();
 
     super.initState();
   }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:nssapp/utils/authenticator.dart';
+import 'dart:io';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
-
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
@@ -25,6 +25,34 @@ class _ProfilePageState extends State<ProfilePage> {
       setState(() {
         _profileImage = File(pickedFile.path);
       });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchToken();
+  }
+
+  String? rollNo;
+  String? name;
+  String? phone;
+  String? email;
+  String? dept;
+
+  void fetchToken() async {
+    final AuthService authService = AuthService();
+    Map<String, dynamic>? token = await authService.getToken();
+    if (token != null) {
+      setState(() {
+        rollNo = token['rollNo'];
+        name = token['name'];
+        phone = token['phone'];
+        email = token['email'];
+        dept = token['department'];
+      });
+    } else {
+      print("No token found");
     }
   }
 
@@ -104,55 +132,54 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       // Name
                       Expanded(
-                        child: buildTextField("Name", "Name", _nameController),
+                        child: buildTextField("Name", "$name", _nameController),
                       ),
                       const SizedBox(width: 20),
                       // Roll Np.
                       Expanded(
-                        child: buildTextField("Roll Number", "Roll Number",
-                            _rollNumberController),
+                        child: buildTextField(
+                            "Roll Number", "$rollNo", _rollNumberController),
                       ),
                     ],
                   ),
                   const SizedBox(height: 20),
                   // Email Field
-                  buildTextField("Email", "Email", _emailController),
+                  buildTextField("Email", "$email", _emailController),
                   const SizedBox(height: 20),
                   // Phone Field
-                  buildTextField("Phone", "Phone", _phoneController),
+                  buildTextField("Phone", "$phone", _phoneController),
                   const SizedBox(height: 20),
                   // Department Field
-                  buildTextField(
-                      "Department Name", "Department", _departmentController),
+                  buildTextField("Department", "$dept", _departmentController),
                   const SizedBox(height: 30),
                   // Save Button
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Placeholder for saving data functionality
-                        print("Name: ${_nameController.text}");
-                        print("Roll Number: ${_rollNumberController.text}");
-                        print("Email: ${_emailController.text}");
-                        print("Phone: ${_phoneController.text}");
-                        print("Department: ${_departmentController.text}");
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 1, 1, 59),
-                        padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: const Text(
-                        "Save",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    ),
-                  ),
+                  //   Center(
+                  //     child: ElevatedButton(
+                  //       onPressed: () {
+                  //         // Placeholder for saving data functionality
+                  //         print("Name: ${_nameController.text}");
+                  //         print("Roll Number: ${_rollNumberController.text}");
+                  //         print("Email: ${_emailController.text}");
+                  //         print("Phone: ${_phoneController.text}");
+                  //         print("Department: ${_departmentController.text}");
+                  //       },
+                  //       style: ElevatedButton.styleFrom(
+                  //         backgroundColor: const Color.fromARGB(255, 1, 1, 59),
+                  //         padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
+                  //         shape: RoundedRectangleBorder(
+                  //           borderRadius: BorderRadius.circular(8),
+                  //         ),
+                  //       ),
+                  //       child: const Text(
+                  //         "Save",
+                  //         style: TextStyle(
+                  //           color: Colors.white,
+                  //           fontSize: 18,
+                  //           fontWeight: FontWeight.normal,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
                 ],
               ),
             ),
@@ -178,6 +205,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         const SizedBox(height: 5),
         TextField(
+          readOnly: true,
           controller: controller,
           decoration: InputDecoration(
             hintText: placeholder,

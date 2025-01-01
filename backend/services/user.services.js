@@ -32,15 +32,6 @@ class userServices {
     }
   }
 
-  // login functionality
-  static async generateToken(
-    tokenData,
-    secretKey,
-    jwtExpiry /* the time till when the login is valid*/
-  ) 
-  {
-    jwt.sign(tokenData, secretKey, { expiresIn: jwtExpiry });
-  }
 }
 
 module.exports = userServices;

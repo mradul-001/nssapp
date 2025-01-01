@@ -42,19 +42,46 @@ async function login(req, res, next) {
         email: user.email,
         department: user.department,
       };
-      const token = await userServices.generateToken(
-        tokenData,
-        "someSecretKey",
-        "1h"
-      );
+
       // send the response to the flutter app
       res.status(200).json({
         status: true,
-        token: token,
+        token: tokenData,
         message: "Login successful",
       });
     }
   }
 }
 
-module.exports = { register, login };
+async function addEvent(req, res) {
+  const jsonFilePath = "../assets/info.json";
+  const newEvent = req.body;
+
+  fs.readFile(jsonFilePath, "utf8", (err, data) => {
+    if (err) {
+      console.error("Error reading file:", err);
+      return res.status(500).send("Internal Server Error");
+    }
+
+    let events = [];
+
+    try {
+      events = JSON.parse(data);
+    } catch (parseErr) {
+      console.error("Error parsing JSON:", parseErr);
+    }
+
+    events.push(newEvent);
+
+    fs.writeFile(jsonFilePath, JSON.stringify(events, null, 2), (writeErr) => {
+      if (writeErr) {
+        console.error("Error writing file:", writeErr);
+        return res.status(500).send("Internal Server Error");
+      }
+
+      res.status(200).send("Event added successfully");
+    });
+  });
+}
+
+module.exports = { register, login, addEvent };

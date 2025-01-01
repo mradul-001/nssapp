@@ -1,13 +1,15 @@
+import 'dart:convert'; // Import this for jsonEncode
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
-  static const String _tokenKey = 'auth_token';
+  static const String _tokenKey = 'default';
 
-  // Save token
-  Future<void> saveToken(String? token) async {
+  Future<void> saveToken(Map<String, dynamic>? token) async {
     if (token != null) {
       final prefs = await SharedPreferences.getInstance();
-      prefs.setString(_tokenKey, token);
+      String tokenString = jsonEncode(token); // Convert Map to String
+      await prefs.setString(_tokenKey, tokenString);
+      print("Token saved: $tokenString");
     } else {
       print("Token is null, cannot save");
     }
@@ -16,19 +18,22 @@ class AuthService {
   // Check if token exists (logged in)
   Future<bool> isLoggedIn() async {
     final prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString(_tokenKey);
-    return token != null;  // If token exists, the user is logged in
+    String? tokenString = prefs.getString(_tokenKey);
+    return tokenString != null; // Returns true if token exists
   }
 
-  // Get the stored token
-  Future<String?> getToken() async {
+  Future<Map<String, dynamic>?> getToken() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_tokenKey);
+    String? tokenString = prefs.getString(_tokenKey);
+    if (tokenString != null) {
+      return jsonDecode(tokenString); // Convert JSON string back to Map
+    }
+    return null;
   }
 
   // Log out by clearing the token
   Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.remove(_tokenKey);
+    await prefs.remove(_tokenKey);
   }
 }
