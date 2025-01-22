@@ -30,18 +30,25 @@ class _LoginFormState extends State<LoginForm> {
       "password": passwordController.text
     };
 
-    var response = await http.post(
-        Uri.parse("http://192.168.206.134:3000/login"),
+    var response = await http.post(Uri.parse("http://10.198.49.6:3000/login"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(reqBody));
 
     var jsonResponse = jsonDecode(response.body);
 
     if (jsonResponse['status']) {
-      await _authService.saveToken(jsonResponse['token']);
+      await _authService.saveToken(jsonResponse['userData']);
+      // make both the fields empty
+      rollController.text = "";
+      passwordController.text = "";
       Navigator.pushNamed(context, Routes.homeRoute);
     } else {
-      print("Something went wrong!");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(jsonResponse['message'] ?? "Something went wrong."),
+          duration: const Duration(seconds: 3),
+        ),
+      );
     }
   }
 

@@ -1,12 +1,25 @@
-const mongoose = require("mongoose");
+const mysql = require('mysql2');
 
-const connection = mongoose
-  .createConnection("mongodb://localhost:27017/nssapp")
-  .on("open", () => {
-    console.log("Connected to database");
-  })
-  .on("error", () => {
-    console.log("Connection to database failed!");
-  });
+const pool = mysql.createPool({
+  host: "10.198.49.6",
+  user: 'nss',
+  password: 'nsswebmaxx@1920',
+  database: 'nssapp',
+});
 
-module.exports = connection;
+// ------------ TESTING THE CONNECTION -------------
+
+const testConnection = async () => {
+  try {
+    await pool.execute('SELECT 1');
+    console.log('Database connection successful!');
+  } catch (error) {
+    console.error('Database connection failed:', error.message);
+  }
+};
+
+testConnection();
+
+// -------------------------------------------------
+
+module.exports = pool.promise();

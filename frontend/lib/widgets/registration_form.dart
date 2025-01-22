@@ -11,7 +11,6 @@ class RegistrationForm extends StatefulWidget {
 }
 
 class _RegistrationFormState extends State<RegistrationForm> {
-
   int currentStep = 1;
 
   // validation variables
@@ -50,16 +49,24 @@ class _RegistrationFormState extends State<RegistrationForm> {
       "email": emailController.text,
       "password": passwordController.text
     };
-    var response = await http.post(
-        Uri.parse("http://192.168.29.51:3000/registration"),
+    var response = await http.post(Uri.parse("http://10.198.49.6:3000/register"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(regBody));
 
     // decode the json response
     var jsonResponse = jsonDecode(response.body);
 
+    // handle the response from the server
     if (jsonResponse['status']) {
       Navigator.pushNamed(context, Routes.loginRoute);
+    } else {
+      // print the custom message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(jsonResponse['message'] ?? "Something went wrong."),
+          duration: const Duration(seconds: 3),
+        ),
+      );
     }
   }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
 import 'package:nssapp/utils/authenticator.dart';
-import 'dart:io';
+import 'dart:convert';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -10,23 +10,15 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  File? _profileImage;
-  final ImagePicker _picker = ImagePicker();
+  // readonly value of text field
+  bool _isReadOnly = true;
+  // final AuthService _authService = AuthService();
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _rollNumberController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _departmentController = TextEditingController();
-
-  Future<void> _pickImage() async {
-    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() {
-        _profileImage = File(pickedFile.path);
-      });
-    }
-  }
 
   @override
   void initState() {
@@ -45,14 +37,58 @@ class _ProfilePageState extends State<ProfilePage> {
     Map<String, dynamic>? token = await authService.getToken();
     if (token != null) {
       setState(() {
-        rollNo = token['rollNo'];
+        rollNo = token['roll'];
         name = token['name'];
-        phone = token['phone'];
+        phone = token['mobile'];
         email = token['email'];
-        dept = token['department'];
+        dept = token['dept'];
+        _nameController.text = name ?? "";
+        _rollNumberController.text = rollNo ?? "";
+        _phoneController.text = phone ?? "";
+        _emailController.text = email ?? "";
       });
     } else {
-      print("No token found");
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Login session expired"),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    }
+  }
+
+  void modifyUser() async {
+    var body = {
+      "name": _nameController.text,
+      "rollNo": _rollNumberController.text,
+      "phone": _phoneController.text,
+      "email": _emailController.text,
+    };
+
+    print("data sent: ");
+    print(body);
+
+    var response = await http.post(
+        Uri.parse("http://192.168.0.151:3000/register"),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(body));
+
+    // decode the json response
+    var jsonResponse = jsonDecode(response.body);
+
+    print(jsonResponse);
+
+    // handle the response from the server
+    if (jsonResponse['status']) {
+      // changing the token value
+      _isReadOnly = !_isReadOnly;
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(jsonResponse['message'] ?? "Something went wrong."),
+          duration: const Duration(seconds: 5),
+        ),
+      );
     }
   }
 
@@ -94,28 +130,27 @@ class _ProfilePageState extends State<ProfilePage> {
                       )),
                 ),
                 Positioned(
+                    top: 30,
+                    right: 20,
+                    child: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _isReadOnly = !_isReadOnly;
+                          });
+                        },
+                        icon: const Icon(
+                          Icons.edit_outlined,
+                          size: 25,
+                          color: Colors.white,
+                        ))),
+                Positioned(
                   top: 115,
                   left: MediaQuery.of(context).size.width / 2 - 60,
-                  child: GestureDetector(
-                    onTap: _pickImage,
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 60,
-                          backgroundColor: Colors.grey[300],
-                          backgroundImage: _profileImage != null
-                              ? FileImage(_profileImage!)
-                              : null,
-                          child: _profileImage == null
-                              ? Icon(
-                                  Icons.person,
-                                  size: 50,
-                                  color: Colors.grey[700],
-                                )
-                              : null,
-                        ),
-                      ],
-                    ),
+                  child: Image.asset(
+                    'assets/images/nsslogo.png',
+                    alignment: Alignment.center,
+                    height: 120,
+                    width: 120,
                   ),
                 ),
               ],
@@ -132,57 +167,34 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       // Name
                       Expanded(
-                        child: buildTextField("Name", "$name", _nameController),
+                        child: buildTextField(
+                            "Name", "$name", _nameController, false),
                       ),
                       const SizedBox(width: 20),
-                      // Roll Np.
+                      // Roll No.
                       Expanded(
-                        child: buildTextField(
-                            "Roll Number", "$rollNo", _rollNumberController),
+                        child: buildTextField("Roll Number", "$rollNo",
+                            _rollNumberController, true),
                       ),
                     ],
                   ),
                   const SizedBox(height: 20),
                   // Email Field
-                  buildTextField("Email", "$email", _emailController),
+                  buildTextField("Email", "$email", _emailController, false),
                   const SizedBox(height: 20),
                   // Phone Field
-                  buildTextField("Phone", "$phone", _phoneController),
+                  buildTextField("Phone", "$phone", _phoneController, false),
                   const SizedBox(height: 20),
                   // Department Field
-                  buildTextField("Department", "$dept", _departmentController),
+                  buildTextField(
+                      "Department", "$dept", _departmentController, true),
                   const SizedBox(height: 30),
-                  // Save Button
-                  //   Center(
-                  //     child: ElevatedButton(
-                  //       onPressed: () {
-                  //         // Placeholder for saving data functionality
-                  //         print("Name: ${_nameController.text}");
-                  //         print("Roll Number: ${_rollNumberController.text}");
-                  //         print("Email: ${_emailController.text}");
-                  //         print("Phone: ${_phoneController.text}");
-                  //         print("Department: ${_departmentController.text}");
-                  //       },
-                  //       style: ElevatedButton.styleFrom(
-                  //         backgroundColor: const Color.fromARGB(255, 1, 1, 59),
-                  //         padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
-                  //         shape: RoundedRectangleBorder(
-                  //           borderRadius: BorderRadius.circular(8),
-                  //         ),
-                  //       ),
-                  //       child: const Text(
-                  //         "Save",
-                  //         style: TextStyle(
-                  //           color: Colors.white,
-                  //           fontSize: 18,
-                  //           fontWeight: FontWeight.normal,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
                 ],
               ),
             ),
+            if (!_isReadOnly)
+              ElevatedButton(
+                  onPressed: modifyUser, child: const Text("Save Changes")),
           ],
         ),
       ),
@@ -190,8 +202,8 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   // function for building text fields
-  Widget buildTextField(
-      String label, String placeholder, TextEditingController controller) {
+  Widget buildTextField(String label, String placeholder,
+      TextEditingController controller, bool shouldNotBeChanged) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -205,7 +217,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         const SizedBox(height: 5),
         TextField(
-          readOnly: true,
+          readOnly: shouldNotBeChanged ? true : _isReadOnly,
           controller: controller,
           decoration: InputDecoration(
             hintText: placeholder,

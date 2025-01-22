@@ -21,12 +21,7 @@ class _AppDrawerState extends State<AppDrawer> {
             decoration: BoxDecoration(
               color: Color.fromARGB(255, 1, 1, 59),
             ),
-            child: Text(
-              'Drawer Header',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
+            child: Text("data"),
           ),
           ListTile(
             contentPadding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
